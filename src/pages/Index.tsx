@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
+  
   const habits = [
     {
       emoji: "💧",
@@ -86,6 +89,7 @@ const Index = () => {
         <div className="text-center mb-20 animate-fade-in" style={{ animationDelay: '0.7s' }}>
           <Button
             size="lg"
+            onClick={() => navigate('/dashboard')}
             className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-12 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             Начать бесплатно
