@@ -18,7 +18,7 @@ const Dashboard = () => {
   };
 
   const menuItems = [
-    { icon: "BarChart3", label: "Мой прогресс", active: true, path: "/dashboard" },
+    { icon: "TrendingUp", label: "Мой прогресс", active: true, path: "/dashboard" },
     { icon: "BookOpen", label: "Библиотека привычек", active: false, path: "/habits" },
     { icon: "Utensils", label: "Рецепты", active: false, path: "/recipes" },
     { icon: "User", label: "Профиль", active: false, path: "/profile" }
@@ -43,10 +43,10 @@ const Dashboard = () => {
               <Link
                 key={index}
                 to={item.path}
-                className={`flex items-center px-4 py-3 rounded-lg transition-all duration-200 ${
+                className={`flex items-center px-4 py-3 rounded-xl transition-all duration-300 ${
                   item.active
-                    ? "bg-gradient-to-r from-green-50 to-blue-50 text-green-600 font-medium"
-                    : "text-gray-600 hover:bg-gray-50"
+                    ? "bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg font-medium"
+                    : "text-gray-600 hover:bg-gray-100"
                 }`}
               >
                 <Icon name={item.icon} className="w-5 h-5 mr-3" />
@@ -94,40 +94,36 @@ const Dashboard = () => {
                     Сегодняшний прогресс
                   </h3>
                   
-                  <div className="grid grid-cols-4 gap-4 mb-6">
+                  <div className="grid grid-cols-8 gap-3 mb-6">
                     {Array.from({ length: totalGlasses }).map((_, index) => (
                       <div
                         key={index}
-                        className={`relative flex flex-col items-center justify-end h-32 rounded-2xl border-4 transition-all duration-500 ${
-                          index < glassesCompleted
-                            ? "border-blue-400 bg-gradient-to-t from-blue-400 to-blue-200"
-                            : "border-gray-200 bg-gray-50"
-                        }`}
+                        className="flex flex-col items-center animate-scale-in"
+                        style={{ animationDelay: `${index * 0.05}s` }}
                       >
-                        <Icon
-                          name="Droplets"
-                          className={`w-8 h-8 mb-2 ${
-                            index < glassesCompleted ? "text-blue-600" : "text-gray-300"
+                        <div
+                          className={`w-full h-32 rounded-2xl border-4 transition-all duration-500 ${
+                            index < glassesCompleted
+                              ? "bg-gradient-to-t from-blue-400 to-blue-300 border-blue-500 shadow-lg shadow-blue-200"
+                              : "bg-gray-50 border-gray-300"
                           }`}
-                        />
+                        >
+                          <div className="flex items-center justify-center h-full">
+                            <Icon
+                              name="Droplet"
+                              className={`w-8 h-8 ${
+                                index < glassesCompleted ? "text-white" : "text-gray-300"
+                              }`}
+                            />
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <p className="text-3xl font-bold text-gray-900">
-                        {glassesCompleted}/{totalGlasses}
-                      </p>
-                      <p className="text-sm text-gray-500">стаканов выполнено</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold text-blue-600">
-                        {Math.round((glassesCompleted / totalGlasses) * 100)}%
-                      </p>
-                      <p className="text-sm text-gray-500">дневная цель</p>
-                    </div>
-                  </div>
+                  <p className="text-center text-2xl font-bold text-gray-900 mb-6">
+                    Выполнено: {glassesCompleted}/{totalGlasses}
+                  </p>
 
                   <Button
                     onClick={handleMarkGlass}
@@ -150,28 +146,26 @@ const Dashboard = () => {
 
                 {/* Statistics */}
                 <div className="grid grid-cols-2 gap-6 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-                  <Card className="p-6 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-                    <div className="flex items-start justify-between">
+                  <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
+                    <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-green-700 mb-1">Текущая серия</p>
-                        <p className="text-3xl font-bold text-green-900">7 дней</p>
-                        <p className="text-sm text-green-600 mt-1">подряд 🔥</p>
+                        <p className="text-blue-100 text-sm mb-1">Текущая серия</p>
+                        <p className="text-3xl font-bold">7 дней подряд</p>
                       </div>
-                      <div className="bg-green-200 p-3 rounded-xl">
-                        <Icon name="Flame" className="w-6 h-6 text-green-700" />
+                      <div className="bg-white/20 p-4 rounded-xl">
+                        <Icon name="Flame" className="w-8 h-8" />
                       </div>
                     </div>
                   </Card>
 
-                  <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-                    <div className="flex items-start justify-between">
+                  <Card className="p-6 bg-gradient-to-br from-green-500 to-green-600 text-white border-0 shadow-xl">
+                    <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-blue-700 mb-1">Всего выпито</p>
-                        <p className="text-3xl font-bold text-blue-900">42 литра</p>
-                        <p className="text-sm text-blue-600 mt-1">за все время 💧</p>
+                        <p className="text-green-100 text-sm mb-1">Всего выпито</p>
+                        <p className="text-3xl font-bold">42 литра</p>
                       </div>
-                      <div className="bg-blue-200 p-3 rounded-xl">
-                        <Icon name="Droplet" className="w-6 h-6 text-blue-700" />
+                      <div className="bg-white/20 p-4 rounded-xl">
+                        <Icon name="Droplets" className="w-8 h-8" />
                       </div>
                     </div>
                   </Card>
